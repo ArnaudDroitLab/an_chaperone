@@ -6,7 +6,7 @@ do
     cat <<EOF > $script
 #!/bin/bash
 #PBS -N $script
-#PBS -A fhq-091-aa
+#PBS -A eav-760-aa
 #PBS -l walltime=6:00:00
 #PBS -l nodes=1:ppn=16
 module load mugqic/python/2.7.12

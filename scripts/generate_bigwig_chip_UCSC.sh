@@ -15,7 +15,7 @@ module load mugqic/python/2.7.12
 # Add chr prefix to bam file.
 samtools view -H $i |
     perl -lpe 's/Mito/M/' |
-    perl -lpe 's/SN:([I]+|I*VI*|I*XV*I*V*|[0-9]+|[XY]|M)\b/SN:chr$1/' > $samplename.sam
+    perl -lpe 's/SN:([I]+|I*VI*|I*XV*I*V*|[0-9]+|[XY]|M)\b/SN:chr\$1/' > $samplename.sam
 
 samtools view $i |
   perl -lpe 's/Mito/M/' |

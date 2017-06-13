@@ -1,9 +1,11 @@
 for i in output/pipeline/alignment/*/*.sorted.dup.bam
 do
     samplename=`basename $i .sorted.dup.bam`
-    mkdir -p output/pipeline/jobs
-    script=output/pipeline/jobs/$samplename.make_bigwig_ucsc.sh
-    cat <<EOF > $script
+    if [ ! -e output/pipeline/tracks/$samplename.bw ]
+    then
+       mkdir -p output/pipeline/jobs
+       script=output/pipeline/jobs/$samplename.make_bigwig_ucsc.sh
+       cat <<EOF > $script
 #!/bin/bash
 #PBS -N $script
 #PBS -A eav-760-aa
@@ -29,6 +31,7 @@ bamCoverage -e 200 --binSize 5 -p 16 --normalizeUsingRPKM \
 rm $samplename.bam
 rm $samplename.bai
 EOF
-    workdir=`pwd`
-    qsub $script -o $script.stdout -e $script.stderr -d $workdir
+        workdir=`pwd`
+        qsub $script -o $script.stdout -e $script.stderr -d $workdir
+    fi
 done

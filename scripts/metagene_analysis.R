@@ -75,10 +75,12 @@ for(region.name in names(metagenes)) {
     if(region.name=="TSS") {
         # TSS should start at -30 and end at 300
         plot.df$position = plot.df$position - min(plot.df$position) - 30
+        xlabel = "Distance from TSS (bp)"
     } else {
         # Gene body should start at 0 and end at 1
         plot.df$position = plot.df$position - min(plot.df$position)
         plot.df$position = plot.df$position / max(plot.df$position)
+        xlabel = "Relative position between TSS (0) and TES (1)"
     }
     
     scale_values = c("dspt2-Cl"="#31a354", "spt6-39C"="#d95f0e", "WT-39C"="#3182bd", "WT-Cl"="#9ecae1")
@@ -87,7 +89,8 @@ for(region.name in names(metagenes)) {
         geom_ribbon(alpha=0.6) +
         scale_fill_manual(values=scale_values) +
         scale_color_manual(values=scale_values) + 
-        facet_grid(~Target)
+        facet_grid(~Target) +
+        labs(x=xlabel, y="RPM")
         
     if(region.name=="TSS") {
         # Add line at TSS.

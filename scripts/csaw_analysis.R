@@ -78,6 +78,41 @@ for(target in c("Iws1", "Chd1")) {
 
 spt2.strain.subset = design.file$Target=="Spt2"
 compare.subsets(design.file, y, data, spt2.strain.subset, paste0("Spt2 - spt6 vs WT"))   
+
 spt6.strain.subset = design.file$Target=="Spt6"
 compare.subsets(design.file, y, data, spt2.strain.subset, paste0("Spt6 - dspt2 vs WT"))   
 
+# Downstream analysis
+results = list()
+for(contrast in list.files("output/csaw", pattern="*.txt"))  {
+    results[[contrast]] = read.table(file.path("output/csaw", contrast), sep="\t", header=TRUE)
+}
+names(results) = gsub(".txt", "", names(results))
+
+library(VennDiagram)
+library(ef.utils)
+for(contrast in c("dspt2 vs WT", "spt6 vs WT", "39C vs Ctl", "Chd1", "Iws1")) {
+    # Subset the results to only keep those relevant to the comparison.
+    relevant.results = results[grepl(contrast, names(results))]
+    
+    # Fix the names by removing the useless parts.
+    fixed.names = names(relevant.results)
+    fixed.names = gsub(contrast, "", fixed.names)
+    fixed.names = gsub("\\s+-\\s+", "", fixed.names)
+    names(relevant.results) = fixed.names
+    
+    # Get gene names/genomic ranges for relevant results
+    gene.list=list()
+    gr.list = list()
+    for(i in names(relevant.results)) {
+        gene.list[[i]] = relevant.results[[i]]$geneId
+        gr.list[[i]] = GRanges(relevant.results[[i]])
+    }
+    
+    # Plot venn diagram of gene names.
+    venn.diagram(gene.list, filename=file.path("output/csaw", paste0("Affected gene comparison for ", contrast, ".tiff")))
+    
+    # Plot venn diagram of regions.
+    intersect.obj = build_intersect(GRangesList(gr.list))
+    intersect_venn_plot(intersect.obj, filename=file.path("output/csaw", paste0("Affected region comparison for ", contrast, ".tiff")))
+}

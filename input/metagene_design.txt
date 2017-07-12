@@ -1,26 +1,26 @@
-Samples	Chd1_dspt2_Cl	Chd1_spt6_39C	Chd1_WT_39C	Chd1_WT_Cl	Iws1_dspt2_Cl	Iws1_spt6_39C	Iws1_WT_39C	Iws1_WT_Cl	Spt2_spt6_39C	Spt2_WT_39C	Spt6_dspt2_Cl	Spt6_WT_Cl
-output/pipeline/alignment/Chd1-Myc_dspt2Cl1/Chd1-Myc_dspt2Cl1.sorted.dup.bam	1	0	0	0	0	0	0	0	0	0	0	0
-output/pipeline/alignment/Chd1-Myc_dspt2Cl2/Chd1-Myc_dspt2Cl2.sorted.dup.bam	1	0	0	0	0	0	0	0	0	0	0	0
-output/pipeline/alignment/Chd1-Myc_spt6_39C_Cl1/Chd1-Myc_spt6_39C_Cl1.sorted.dup.bam	0	1	0	0	0	0	0	0	0	0	0	0
-output/pipeline/alignment/Chd1-Myc_spt6_39C_Cl2/Chd1-Myc_spt6_39C_Cl2.sorted.dup.bam	0	1	0	0	0	0	0	0	0	0	0	0
-output/pipeline/alignment/Chd1-Myc_Wt_39C_Cl1/Chd1-Myc_Wt_39C_Cl1.sorted.dup.bam	0	0	1	0	0	0	0	0	0	0	0	0
-output/pipeline/alignment/Chd1-Myc_Wt_39C_Cl2/Chd1-Myc_Wt_39C_Cl2.sorted.dup.bam	0	0	1	0	0	0	0	0	0	0	0	0
-output/pipeline/alignment/Chd1-Myc_WtCl1/Chd1-Myc_WtCl1.sorted.dup.bam	0	0	0	1	0	0	0	0	0	0	0	0
-output/pipeline/alignment/Chd1-Myc_WtCl2/Chd1-Myc_WtCl2.sorted.dup.bam	0	0	0	1	0	0	0	0	0	0	0	0
-output/pipeline/alignment/Iws1-Myc_dspt2Cl1/Iws1-Myc_dspt2Cl1.sorted.dup.bam	0	0	0	0	1	0	0	0	0	0	0	0
-output/pipeline/alignment/Iws1-Myc_dspt2Cl2/Iws1-Myc_dspt2Cl2.sorted.dup.bam	0	0	0	0	1	0	0	0	0	0	0	0
-output/pipeline/alignment/Iws1-Myc_spt6_39C_Cl1/Iws1-Myc_spt6_39C_Cl1.sorted.dup.bam	0	0	0	0	0	1	0	0	0	0	0	0
-output/pipeline/alignment/Iws1-Myc_spt6_39C_Cl2/Iws1-Myc_spt6_39C_Cl2.sorted.dup.bam	0	0	0	0	0	1	0	0	0	0	0	0
-output/pipeline/alignment/Iws1-Myc_Wt_39C_Cl1/Iws1-Myc_Wt_39C_Cl1.sorted.dup.bam	0	0	0	0	0	0	1	0	0	0	0	0
-output/pipeline/alignment/Iws1-Myc_Wt_39C_Cl2/Iws1-Myc_Wt_39C_Cl2.sorted.dup.bam	0	0	0	0	0	0	1	0	0	0	0	0
-output/pipeline/alignment/Iws1-Myc_WtCl1/Iws1-Myc_WtCl1.sorted.dup.bam	0	0	0	0	0	0	0	1	0	0	0	0
-output/pipeline/alignment/Iws1-Myc_WtCl2/Iws1-Myc_WtCl2.sorted.dup.bam	0	0	0	0	0	0	0	1	0	0	0	0
-output/pipeline/alignment/No-TAG/No-TAG.sorted.dup.bam	0	0	0	0	0	0	0	0	0	0	0	0
-output/pipeline/alignment/Spt2-Myc_spt6_39C_Cl1/Spt2-Myc_spt6_39C_Cl1.sorted.dup.bam	0	0	0	0	0	0	0	0	1	0	0	0
-output/pipeline/alignment/Spt2-Myc_spt6_39C_Cl2/Spt2-Myc_spt6_39C_Cl2.sorted.dup.bam	0	0	0	0	0	0	0	0	1	0	0	0
-output/pipeline/alignment/Spt2-Myc_Wt_39C_Cl1/Spt2-Myc_Wt_39C_Cl1.sorted.dup.bam	0	0	0	0	0	0	0	0	0	1	0	0
-output/pipeline/alignment/Spt2-Myc_Wt_39C_Cl2/Spt2-Myc_Wt_39C_Cl2.sorted.dup.bam	0	0	0	0	0	0	0	0	0	1	0	0
-output/pipeline/alignment/Spt6-Myc_dspt2Cl1/Spt6-Myc_dspt2Cl1.sorted.dup.bam	0	0	0	0	0	0	0	0	0	0	1	0
-output/pipeline/alignment/Spt6-Myc_dspt2Cl2/Spt6-Myc_dspt2Cl2.sorted.dup.bam	0	0	0	0	0	0	0	0	0	0	1	0
-output/pipeline/alignment/Spt6-Myc_WtCl1/Spt6-Myc_WtCl1.sorted.dup.bam	0	0	0	0	0	0	0	0	0	0	0	1
-output/pipeline/alignment/Spt6-Myc_WtCl2/Spt6-Myc_WtCl2.sorted.dup.bam	0	0	0	0	0	0	0	0	0	0	0	1
+Samples	Chd1_dspt2_Cl	Chd1_spt6_39C	Chd1_WT_39C	Chd1_WT_Cl	Iws1_dspt2_Cl	Iws1_spt6_39C	Iws1_WT_39C	Iws1_WT_Cl	Spt2_spt6_39C	Spt2_WT_39C	Spt6_dspt2_Cl	Spt6_WT_Cl	NoTAG
+output/pipeline/alignment/Chd1-Myc_dspt2Cl1/Chd1-Myc_dspt2Cl1.sorted.dup.bam	1	0	0	0	0	0	0	0	0	0	0	0	0
+output/pipeline/alignment/Chd1-Myc_dspt2Cl2/Chd1-Myc_dspt2Cl2.sorted.dup.bam	1	0	0	0	0	0	0	0	0	0	0	0	0
+output/pipeline/alignment/Chd1-Myc_spt6_39C_Cl1/Chd1-Myc_spt6_39C_Cl1.sorted.dup.bam	0	1	0	0	0	0	0	0	0	0	0	0	0
+output/pipeline/alignment/Chd1-Myc_spt6_39C_Cl2/Chd1-Myc_spt6_39C_Cl2.sorted.dup.bam	0	1	0	0	0	0	0	0	0	0	0	0	0
+output/pipeline/alignment/Chd1-Myc_Wt_39C_Cl1/Chd1-Myc_Wt_39C_Cl1.sorted.dup.bam	0	0	1	0	0	0	0	0	0	0	0	0	0
+output/pipeline/alignment/Chd1-Myc_Wt_39C_Cl2/Chd1-Myc_Wt_39C_Cl2.sorted.dup.bam	0	0	1	0	0	0	0	0	0	0	0	0	0
+output/pipeline/alignment/Chd1-Myc_WtCl1/Chd1-Myc_WtCl1.sorted.dup.bam	0	0	0	1	0	0	0	0	0	0	0	0	0
+output/pipeline/alignment/Chd1-Myc_WtCl2/Chd1-Myc_WtCl2.sorted.dup.bam	0	0	0	1	0	0	0	0	0	0	0	0	0
+output/pipeline/alignment/Iws1-Myc_dspt2Cl1/Iws1-Myc_dspt2Cl1.sorted.dup.bam	0	0	0	0	1	0	0	0	0	0	0	0	0
+output/pipeline/alignment/Iws1-Myc_dspt2Cl2/Iws1-Myc_dspt2Cl2.sorted.dup.bam	0	0	0	0	1	0	0	0	0	0	0	0	0
+output/pipeline/alignment/Iws1-Myc_spt6_39C_Cl1/Iws1-Myc_spt6_39C_Cl1.sorted.dup.bam	0	0	0	0	0	1	0	0	0	0	0	0	0
+output/pipeline/alignment/Iws1-Myc_spt6_39C_Cl2/Iws1-Myc_spt6_39C_Cl2.sorted.dup.bam	0	0	0	0	0	1	0	0	0	0	0	0	0
+output/pipeline/alignment/Iws1-Myc_Wt_39C_Cl1/Iws1-Myc_Wt_39C_Cl1.sorted.dup.bam	0	0	0	0	0	0	1	0	0	0	0	0	0
+output/pipeline/alignment/Iws1-Myc_Wt_39C_Cl2/Iws1-Myc_Wt_39C_Cl2.sorted.dup.bam	0	0	0	0	0	0	1	0	0	0	0	0	0
+output/pipeline/alignment/Iws1-Myc_WtCl1/Iws1-Myc_WtCl1.sorted.dup.bam	0	0	0	0	0	0	0	1	0	0	0	0	0
+output/pipeline/alignment/Iws1-Myc_WtCl2/Iws1-Myc_WtCl2.sorted.dup.bam	0	0	0	0	0	0	0	1	0	0	0	0	0
+output/pipeline/alignment/No-TAG/No-TAG.sorted.dup.bam	0	0	0	0	0	0	0	0	0	0	0	0	1
+output/pipeline/alignment/Spt2-Myc_spt6_39C_Cl1/Spt2-Myc_spt6_39C_Cl1.sorted.dup.bam	0	0	0	0	0	0	0	0	1	0	0	0	0
+output/pipeline/alignment/Spt2-Myc_spt6_39C_Cl2/Spt2-Myc_spt6_39C_Cl2.sorted.dup.bam	0	0	0	0	0	0	0	0	1	0	0	0	0
+output/pipeline/alignment/Spt2-Myc_Wt_39C_Cl1/Spt2-Myc_Wt_39C_Cl1.sorted.dup.bam	0	0	0	0	0	0	0	0	0	1	0	0	0
+output/pipeline/alignment/Spt2-Myc_Wt_39C_Cl2/Spt2-Myc_Wt_39C_Cl2.sorted.dup.bam	0	0	0	0	0	0	0	0	0	1	0	0	0
+output/pipeline/alignment/Spt6-Myc_dspt2Cl1/Spt6-Myc_dspt2Cl1.sorted.dup.bam	0	0	0	0	0	0	0	0	0	0	1	0	0
+output/pipeline/alignment/Spt6-Myc_dspt2Cl2/Spt6-Myc_dspt2Cl2.sorted.dup.bam	0	0	0	0	0	0	0	0	0	0	1	0	0
+output/pipeline/alignment/Spt6-Myc_WtCl1/Spt6-Myc_WtCl1.sorted.dup.bam	0	0	0	0	0	0	0	0	0	0	0	1	0
+output/pipeline/alignment/Spt6-Myc_WtCl2/Spt6-Myc_WtCl2.sorted.dup.bam	0	0	0	0	0	0	0	0	0	0	0	1	0

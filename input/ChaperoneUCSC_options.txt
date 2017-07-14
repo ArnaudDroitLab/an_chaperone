@@ -1,0 +1,7 @@
+Chd1	color 255,0,0
+Iws1	color 102,0,204
+Spt6	color 255,102,0
+Spt2	color 115,255,87
+.*	alwaysZero on
+.*	autoScale on
+(\.bw|\.bigwig|\.bb)$	maxHeightPixels 100:40:8

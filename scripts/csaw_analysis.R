@@ -3,6 +3,7 @@ require(ChIPseeker)
 require(edgeR)
 require(TxDb.Scerevisiae.UCSC.sacCer3.sgdGene)
 require(org.Sc.sgd.db)
+require(rtracklayer)
 
 # Load data
 bam.files = Sys.glob("output/pipeline/alignment/*/*.sorted.dup.bam")
@@ -25,6 +26,18 @@ normfacs <- normOffsets(binned)
 y <- asDGEList(data, norm.factors=normfacs)
 txdb = makeTxDbFromGFF("input/Saccharomyces_cerevisiae.R64-1-1.Ensembl77.gtf")
 
+# Get all genes.
+coordinates = import("input/Saccharomyces_cerevisiae.R64-1-1.Ensembl77.gtf")
+coordinates = coordinates[coordinates$type=="gene"]
+
+# Generate intergenic gap, and add dummy annotation so we can concatenate it to the genes.
+intergenic = gaps(coordinates)
+for(i in names(mcols(coordinates))) {
+    mcols(intergenic)[[i]] = NA
+}
+
+# Concatenate genes and intergenic regions.
+full.genome = c(coordinates, intergenic)
 compare.subsets <- function(design.file, dge.object, data, indices, label, threshold=0.05) {
     excludeNAs = indices
     excludeNAs[is.na(excludeNAs)] = FALSE
@@ -45,17 +58,14 @@ compare.subsets <- function(design.file, dge.object, data, indices, label, thres
     dge.disp <- estimateDisp(dge.subset, design)
     fit <- glmQLFit(dge.disp, design, robust=TRUE)
     results <- glmQLFTest(fit)
+
+    # Genewise results
+    olap <- findOverlaps(full.genome, rowRanges(data[,excludeNAs]))
+    tab.by.gene <- combineOverlaps(olap, results$table)
+    contrast.results = full.genome
+    mcols(contrast.results) = cbind(mcols(contrast.results), tab.by.gene)
     
-    merged <- mergeWindows(rowRanges(data[,excludeNAs]), tol=1000L)
-    tabcom <- combineTests(merged$id, results$table)
-    
-    sig.regions = merged$region
-    mcols(sig.regions) = tabcom
-    sig.regions = sig.regions[sig.regions$FDR <= threshold]
-    
-    sig.regions = annotatePeak(sig.regions, tssRegion=c(-1, 1),
-                               TxDb=txdb,
-                               annoDb="org.Sc.sgd.db", level="gene")
+    sig.regions = contrast.results[contrast.results$FDR <= threshold & !is.na(contrast.results$FDR)]
     
     dir.create("output/csaw", recursive=TRUE, showWarnings=FALSE)
     write.table(as.data.frame(sig.regions), file.path("output/csaw", paste0(label, ".txt")),
@@ -65,47 +75,51 @@ compare.subsets <- function(design.file, dge.object, data, indices, label, thres
 for(target in c("Iws1", "Chd1")) {
     # dspt2 effect
     dspt2.subset = design.file$Target==target & design.file$Temp=="Ctl"
-    compare.subsets(design.file, y, data, dspt2.subset, paste0(target, " - dspt2 vs WT"))
+    compare.subsets(design.file, y, data, dspt2.subset, paste0(target, "-dspt2_vs_WT"))
     
     # spt6 effect
     spt6.subset = design.file$Target==target & design.file$Temp=="39C"
-    compare.subsets(design.file, y, data, spt6.subset, paste0(target, " - spt6 vs WT"))
+    compare.subsets(design.file, y, data, spt6.subset, paste0(target, "-spt6_vs_WT"))
     
     # Temp effect
     temp.subset = design.file$Target==target & design.file$Strain=="WT"
-    compare.subsets(design.file, y, data, temp.subset, paste0(target, " - 39C vs Ctl in WT"))    
+    compare.subsets(design.file, y, data, temp.subset, paste0(target, "-39C_vs_Ctl_in_WT"))    
 }
 
 spt2.strain.subset = design.file$Target=="Spt2"
-compare.subsets(design.file, y, data, spt2.strain.subset, paste0("Spt2 - spt6 vs WT"))   
+compare.subsets(design.file, y, data, spt2.strain.subset, paste0("Spt2-spt6_vs_WT"))   
 
 spt6.strain.subset = design.file$Target=="Spt6"
-compare.subsets(design.file, y, data, spt2.strain.subset, paste0("Spt6 - dspt2 vs WT"))   
+compare.subsets(design.file, y, data, spt6.strain.subset, paste0("Spt6-dspt2_vs_WT"))   
 
 # Downstream analysis
 results = list()
-for(contrast in list.files("output/csaw", pattern="*.txt"))  {
-    results[[contrast]] = read.table(file.path("output/csaw", contrast), sep="\t", header=TRUE)
+for(contrast in list.files("output/csaw", pattern="*.txt$"))  {
+    results[[contrast]] = read.table(file.path("output/csaw", contrast), sep="\t", header=TRUE, stringsAsFactors=FALSE, quote="")
 }
 names(results) = gsub(".txt", "", names(results))
 
 library(VennDiagram)
 library(ef.utils)
-for(contrast in c("dspt2 vs WT", "spt6 vs WT", "39C vs Ctl", "Chd1", "Iws1")) {
+for(contrast in c("dspt2_vs_WT", "spt6_vs_WT", "39C_vs_Ctl_in_WT", "Chd1", "Iws1")) {
     # Subset the results to only keep those relevant to the comparison.
     relevant.results = results[grepl(contrast, names(results))]
     
     # Fix the names by removing the useless parts.
     fixed.names = names(relevant.results)
     fixed.names = gsub(contrast, "", fixed.names)
-    fixed.names = gsub("\\s+-\\s+", "", fixed.names)
+    fixed.names = gsub("-", "", fixed.names)
     names(relevant.results) = fixed.names
     
     # Get gene names/genomic ranges for relevant results
     gene.list=list()
     gr.list = list()
     for(i in names(relevant.results)) {
-        gene.list[[i]] = relevant.results[[i]]$geneId
+        gene.list[[i]] = relevant.results[[i]]$gene_id[!is.na(relevant.results[[i]]$gene_id)]
+        
+        relevant.results[[i]]$start = relevant.results[[i]]$start + 2
+        relevant.results[[i]]$end = relevant.results[[i]]$end - 2
+        
         gr.list[[i]] = GRanges(relevant.results[[i]])
     }
     

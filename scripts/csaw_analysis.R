@@ -31,10 +31,15 @@ coordinates = import("input/Saccharomyces_cerevisiae.R64-1-1.Ensembl77.gtf")
 coordinates = coordinates[coordinates$type=="gene"]
 
 # Generate intergenic gap, and add dummy annotation so we can concatenate it to the genes.
-intergenic = gaps(coordinates)
+nostrands = coordinates
+strand(nostrands)="+"
+
+intergenic = gaps(nostrands)
 for(i in names(mcols(coordinates))) {
     mcols(intergenic)[[i]] = NA
 }
+
+strands(intergenic) = "*"
 
 # Concatenate genes and intergenic regions.
 full.genome = c(coordinates, intergenic)
@@ -66,6 +71,15 @@ compare.subsets <- function(design.file, dge.object, data, indices, label, thres
     mcols(contrast.results) = cbind(mcols(contrast.results), tab.by.gene)
     
     sig.regions = contrast.results[contrast.results$FDR <= threshold & !is.na(contrast.results$FDR)]
+    
+    sig.overlap = findOverlaps(sig.regions, rowRanges(data[,excludeNAs]))
+    fc.mean = rep(0, length(sig.regions))
+    for(i in queryHits(sig.overlap)) {
+        hitIndices = subjectHits(sig.overlap)[queryHits(sig.overlap)==i]
+        fc.mean[i] = mean(results$coefficients[hitIndices,2])
+    }
+    
+    sig.regions$Mean.FC = fc.mean
     
     dir.create("output/csaw", recursive=TRUE, showWarnings=FALSE)
     write.table(as.data.frame(sig.regions), file.path("output/csaw", paste0(label, ".txt")),
@@ -117,8 +131,8 @@ for(contrast in c("dspt2_vs_WT", "spt6_vs_WT", "39C_vs_Ctl_in_WT", "Chd1", "Iws1
     for(i in names(relevant.results)) {
         gene.list[[i]] = relevant.results[[i]]$gene_id[!is.na(relevant.results[[i]]$gene_id)]
         
-        relevant.results[[i]]$start = relevant.results[[i]]$start + 2
-        relevant.results[[i]]$end = relevant.results[[i]]$end - 2
+        relevant.results[[i]]$start = relevant.results[[i]]$start + 1
+        relevant.results[[i]]$end = relevant.results[[i]]$end
         
         gr.list[[i]] = GRanges(relevant.results[[i]])
     }
@@ -130,3 +144,13 @@ for(contrast in c("dspt2_vs_WT", "spt6_vs_WT", "39C_vs_Ctl_in_WT", "Chd1", "Iws1
     intersect.obj = build_intersect(GRangesList(gr.list))
     intersect_venn_plot(intersect.obj, filename=file.path("output/csaw", paste0("Affected region comparison for ", contrast, ".tiff")))
 }
+
+
+target = "Chd1"
+temp.subset = design.file$Target==target & design.file$Strain=="WT"
+design.file = design.file
+dge.object = y
+data = data 
+indices = temp.subset
+label = paste0(target, "-39C_vs_Ctl_in_WT")
+threshold=0.05
